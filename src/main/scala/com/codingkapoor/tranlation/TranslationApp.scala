@@ -6,6 +6,7 @@ import akka.pattern.ask
 import akka.util.Timeout
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Await
 
 object TranslationApp extends App {
   implicit lazy val timeout: Timeout = Timeout(5.seconds)
@@ -17,4 +18,6 @@ object TranslationApp extends App {
   f.map { res =>
     println(res)
   }
+
+  Await.result(system.whenTerminated, Duration.Inf)
 }
